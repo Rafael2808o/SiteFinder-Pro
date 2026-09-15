@@ -35,17 +35,66 @@ const COUNTRY_INFO: Record<string, { name: string; nominatimCode: string }> = {
 function categoryClauses(category: string, around: string): string[] {
   const norm = category.toLowerCase()
   const byCategory: Record<string, string[]> = {
+    // Alimentação
     restaurante: [`nwr["amenity"~"^(restaurant|fast_food|cafe|bar|pub)$"](${around});`],
+    padaria: [`nwr["shop"="bakery"](${around});`],
+    açougue: [`nwr["shop"="butcher"](${around});`],
+    hortifruti: [`nwr["shop"~"^(greengrocer|farm)$"](${around});`],
+    mercearia: [`nwr["shop"="convenience"](${around});`],
+    supermercado: [`nwr["shop"~"^(supermarket|grocery)$"](${around});`],
+    sorveteria: [`nwr["amenity"="ice_cream"](${around});`, `nwr["shop"="ice_cream"](${around});`],
+    adega: [`nwr["shop"~"^(alcohol|wine)$"](${around});`],
+    // Beleza e bem-estar
     'salão de beleza': [`nwr["shop"~"^(hairdresser|beauty)$"](${around});`],
+    estética: [`nwr["shop"="beauty"](${around});`],
+    tatuagem: [`nwr["shop"="tattoo"](${around});`],
+    ótica: [`nwr["shop"="optician"](${around});`],
+    farmácia: [`nwr["amenity"="pharmacy"](${around});`],
     academia: [`nwr["leisure"="fitness_centre"](${around});`, `nwr["sport"="fitness"](${around});`],
+    // Saúde
     clínica: [`nwr["amenity"~"^(clinic|hospital)$"](${around});`],
     dentista: [`nwr["amenity"="dentist"](${around});`],
-    advocacia: [`nwr["office"="lawyer"](${around});`],
-    imobiliária: [`nwr["office"="estate_agent"](${around});`],
-    'oficina mecânica': [`nwr["shop"="car_repair"](${around});`],
-    loja: [`nwr["shop"](${around});`],
+    veterinária: [`nwr["amenity"="veterinary"](${around});`],
     'pet shop': [`nwr["shop"="pet"](${around});`],
+    // Automotivo
+    'posto de combustível': [`nwr["amenity"="fuel"](${around});`],
+    'lava rápido': [`nwr["amenity"="car_wash"](${around});`, `nwr["shop"="car_wash"](${around});`],
+    'oficina mecânica': [`nwr["shop"="car_repair"](${around});`],
+    autopeças: [`nwr["shop"~"^(car_parts|car_repair)$"](${around});`],
+    borracharia: [`nwr["shop"="tyres"](${around});`],
+    concessionária: [`nwr["shop"~"^(car|motorcycle)$"](${around});`],
+    autoescola: [`nwr["amenity"="driving_school"](${around});`],
+    // Serviços profissionais
+    advocacia: [`nwr["office"="lawyer"](${around});`],
     contabilidade: [`nwr["office"="accountant"](${around});`],
+    imobiliária: [`nwr["office"="estate_agent"](${around});`],
+    seguros: [`nwr["office"="insurance"](${around});`],
+    'agência de viagens': [`nwr["shop"="travel_agency"](${around});`, `nwr["office"="travel_agent"](${around});`],
+    arquitetura: [`nwr["office"="architect"](${around});`],
+    // Varejo
+    loja: [`nwr["shop"](${around});`],
+    'loja de roupas': [`nwr["shop"~"^(clothes|boutique)$"](${around});`],
+    'loja de calçados': [`nwr["shop"="shoes"](${around});`],
+    eletrônicos: [`nwr["shop"~"^(mobile_phone|electronics|computer)$"](${around});`],
+    papelaria: [`nwr["shop"="stationery"](${around});`],
+    livraria: [`nwr["shop"="books"](${around});`],
+    'material de construção': [`nwr["shop"~"^(hardware|doityourself)$"](${around});`],
+    móveis: [`nwr["shop"="furniture"](${around});`],
+    joalheria: [`nwr["shop"="jewelry"](${around});`],
+    floricultura: [`nwr["shop"="florist"](${around});`],
+    presentes: [`nwr["shop"="gift"](${around});`],
+    brinquedos: [`nwr["shop"="toys"](${around});`],
+    'artigos esportivos': [`nwr["shop"="sports"](${around});`],
+    gráfica: [`nwr["shop"="copyshop"](${around});`],
+    // Serviços residenciais
+    eletricista: [`nwr["craft"="electrician"](${around});`],
+    encanador: [`nwr["craft"="plumber"](${around});`],
+    marcenaria: [`nwr["craft"="carpenter"](${around});`],
+    serralheria: [`nwr["craft"~"^(blacksmith|metal_construction)$"](${around});`],
+    chaveiro: [`nwr["shop"="locksmith"](${around});`, `nwr["craft"="locksmith"](${around});`],
+    pintor: [`nwr["craft"="painter"](${around});`],
+    // Hospedagem
+    hotel: [`nwr["tourism"~"^(hotel|guest_house|hostel)$"](${around});`],
   }
   if (norm !== 'todas' && byCategory[norm]) return byCategory[norm]
 
@@ -60,12 +109,28 @@ function categoryClauses(category: string, around: string): string[] {
 
 const CATEGORY_LABELS: Record<string, string> = {
   restaurant: 'Restaurante', fast_food: 'Fast food', cafe: 'Café', bar: 'Bar', pub: 'Bar',
-  hairdresser: 'Salão de beleza', beauty: 'Salão de beleza', fitness_centre: 'Academia',
+  hairdresser: 'Salão de beleza', beauty: 'Clínica de estética', fitness_centre: 'Academia',
   clinic: 'Clínica', hospital: 'Hospital', dentist: 'Dentista', lawyer: 'Advocacia',
   estate_agent: 'Imobiliária', car_repair: 'Oficina mecânica', pet: 'Pet shop',
   accountant: 'Contabilidade', pharmacy: 'Farmácia', bank: 'Banco', veterinary: 'Veterinária',
-  fuel: 'Posto de combustível', supermarket: 'Supermercado', clothes: 'Loja de roupas',
-  bakery: 'Padaria',
+  fuel: 'Posto de combustível', supermarket: 'Supermercado', grocery: 'Mercado',
+  clothes: 'Loja de roupas', boutique: 'Loja de roupas', bakery: 'Padaria', butcher: 'Açougue',
+  greengrocer: 'Hortifruti', farm: 'Produtor rural', convenience: 'Conveniência',
+  ice_cream: 'Sorveteria', alcohol: 'Adega', wine: 'Adega', tattoo: 'Estúdio de tatuagem',
+  optician: 'Ótica', car_wash: 'Lava-rápido', car_parts: 'Autopeças', tyres: 'Borracharia',
+  car: 'Concessionária', motorcycle: 'Loja de motos', driving_school: 'Autoescola',
+  insurance: 'Corretora de seguros', travel_agency: 'Agência de viagens',
+  travel_agent: 'Agência de viagens', architect: 'Escritório de arquitetura',
+  shoes: 'Loja de calçados', mobile_phone: 'Loja de celulares', electronics: 'Loja de eletrônicos',
+  computer: 'Loja de informática', stationery: 'Papelaria', books: 'Livraria',
+  hardware: 'Material de construção', doityourself: 'Material de construção',
+  furniture: 'Loja de móveis', jewelry: 'Joalheria', florist: 'Floricultura',
+  gift: 'Loja de presentes', toys: 'Loja de brinquedos', sports: 'Artigos esportivos',
+  copyshop: 'Gráfica', electrician: 'Eletricista', plumber: 'Encanador',
+  carpenter: 'Marcenaria', blacksmith: 'Serralheria', metal_construction: 'Serralheria',
+  locksmith: 'Chaveiro', painter: 'Pintor', hotel: 'Hotel', guest_house: 'Pousada',
+  hostel: 'Hostel', it: 'Loja de informática', mall: 'Shopping', government: 'Órgão público',
+  paint: 'Loja de tintas',
 }
 
 function categoryLabel(tags: Record<string, string>): string {
