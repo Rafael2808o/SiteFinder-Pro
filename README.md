@@ -75,6 +75,18 @@ supabase secrets set OPENAI_API_KEY=sua-chave
 npm run dev
 ```
 
+### 6. Deploy no Render
+
+1. No dashboard do Render: **New > Blueprint**.
+2. Conecte o repositório `SiteFinder-Pro` (GitHub).
+3. Render lê `render.yaml` automaticamente e propõe o Static Site `sitefinder-pro`.
+4. Preencha os dois env vars pedidos (os mesmos do `.env` local):
+   - `VITE_SUPABASE_URL`
+   - `VITE_SUPABASE_ANON_KEY`
+5. Deploy. Build: `npm install && npm run build`, publica `dist/`, com rewrite `/*` → `/index.html` já configurado (necessário para as rotas do React Router funcionarem em refresh direto).
+
+Repositório: https://github.com/Rafael2808o/SiteFinder-Pro
+
 ## Limitações importantes (honestidade sobre a fonte de dados)
 
 - Ver seção "Fonte de dados" acima — sem nota/avaliações/fotos, por escolha deliberada de não exigir cartão de crédito do Google Cloud.
