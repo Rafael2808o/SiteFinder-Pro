@@ -3,6 +3,7 @@ import { AuthProvider } from './context/AuthContext'
 import { SearchProvider } from './context/SearchContext'
 import { ProtectedRoute } from './routes/ProtectedRoute'
 import { AppShell } from './components/layout/AppShell'
+import { LandingPage } from './pages/LandingPage'
 import { LoginPage } from './pages/auth/LoginPage'
 import { SignupPage } from './pages/auth/SignupPage'
 import { ForgotPasswordPage } from './pages/auth/ForgotPasswordPage'
@@ -20,6 +21,7 @@ export default function App() {
       <SearchProvider>
         <BrowserRouter>
           <Routes>
+            <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/cadastro" element={<SignupPage />} />
             <Route path="/recuperar-senha" element={<ForgotPasswordPage />} />
@@ -40,7 +42,7 @@ export default function App() {
               <Route path="/configuracoes" element={<SettingsPage />} />
             </Route>
 
-            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </BrowserRouter>
       </SearchProvider>
