@@ -1,4 +1,4 @@
-// Shared AI provider switch for the generate-message / generate-prototype
+// Shared AI provider switch for the generate-message / generate-site-prompts
 // Edge Functions. AI_PROVIDER selects the backend; defaults to gemini.
 // All keys are Supabase secrets — never sent to the browser.
 
@@ -103,7 +103,7 @@ export async function generateText(prompt: string): Promise<string> {
   return text.trim()
 }
 
-/** Structured JSON generation (website prototype briefing), constrained by a JSON Schema. */
+/** Structured JSON generation (creative brief for site prompts), constrained by a JSON Schema. */
 export async function generateJson(prompt: string, schema: Record<string, unknown>): Promise<unknown> {
   if (!hasAiKey()) throw new Error(missingKeyError())
 
@@ -117,7 +117,7 @@ export async function generateJson(prompt: string, schema: Record<string, unknow
         temperature: 0.8,
         response_format: {
           type: 'json_schema',
-          json_schema: { name: 'website_prototype', schema, strict: true },
+          json_schema: { name: 'site_prompt_brief', schema, strict: true },
         },
       }),
     })
@@ -130,7 +130,7 @@ export async function generateJson(prompt: string, schema: Record<string, unknow
     contents: [{ role: 'user', parts: [{ text: prompt }] }],
     generationConfig: {
       temperature: 0.8,
-      maxOutputTokens: 2048,
+      maxOutputTokens: 3072,
       thinkingConfig: { thinkingBudget: 0 },
       responseMimeType: 'application/json',
       responseSchema: schema,

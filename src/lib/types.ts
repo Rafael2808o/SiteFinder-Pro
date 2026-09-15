@@ -103,21 +103,9 @@ export const SITE_STATUS_LABELS: Record<SiteStatus, string> = {
   com_site: 'Com site',
 }
 
-export interface WebsitePrototype {
+export interface SitePrompts {
   companyId: string
-  headline: string
-  subheadline: string
-  aboutText: string
-  services: string[]
-  colorPalette: { primary: string; secondary: string; accent: string; background: string }
-  fontPairing: { heading: string; body: string }
-  sections: PrototypeSection[]
-  photos: string[]
+  prototypePrompt: string
+  fullSitePrompt: string
   generatedAt: string
-}
-
-export interface PrototypeSection {
-  type: 'hero' | 'about' | 'services' | 'gallery' | 'testimonials' | 'contact'
-  title: string
-  content: string
 }

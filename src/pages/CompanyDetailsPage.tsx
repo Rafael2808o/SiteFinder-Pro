@@ -10,7 +10,7 @@ import { Button } from '../components/ui/Button'
 import { SiteStatusBadge } from '../components/companies/SiteStatusBadge'
 import { LeadScoreBadge } from '../components/companies/LeadScoreBadge'
 import { MessageGeneratorModal } from '../components/prospecting/MessageGeneratorModal'
-import { PrototypeGeneratorModal } from '../components/prospecting/PrototypeGeneratorModal'
+import { SitePromptModal } from '../components/prospecting/SitePromptModal'
 import { addLeadFromCompany } from '../services/leads'
 import { buildWhatsappUrl } from '../lib/whatsapp'
 import { photoUrl } from '../services/places'
@@ -19,7 +19,7 @@ export function CompanyDetailsPage() {
   const { selectedCompany: company, markContacted } = useSearch()
   const navigate = useNavigate()
   const [showMessage, setShowMessage] = useState(false)
-  const [showPrototype, setShowPrototype] = useState(false)
+  const [showSitePrompts, setShowSitePrompts] = useState(false)
   const [adding, setAdding] = useState(false)
 
   if (!company) {
@@ -166,14 +166,14 @@ export function CompanyDetailsPage() {
         <MessageGeneratorModal
           company={company}
           onClose={() => setShowMessage(false)}
-          onGeneratePrototype={() => {
+          onGenerateSitePrompts={() => {
             setShowMessage(false)
-            setShowPrototype(true)
+            setShowSitePrompts(true)
           }}
         />
       )}
-      {showPrototype && (
-        <PrototypeGeneratorModal company={company} onClose={() => setShowPrototype(false)} />
+      {showSitePrompts && (
+        <SitePromptModal company={company} onClose={() => setShowSitePrompts(false)} />
       )}
     </div>
   )

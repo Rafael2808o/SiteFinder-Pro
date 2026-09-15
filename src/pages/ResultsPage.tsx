@@ -6,7 +6,7 @@ import { CompanyFilters } from '../components/companies/CompanyFilters'
 import { CompanyCard } from '../components/companies/CompanyCard'
 import { CompanyMap } from '../components/companies/CompanyMap'
 import { MessageGeneratorModal } from '../components/prospecting/MessageGeneratorModal'
-import { PrototypeGeneratorModal } from '../components/prospecting/PrototypeGeneratorModal'
+import { SitePromptModal } from '../components/prospecting/SitePromptModal'
 import { Spinner } from '../components/ui/Spinner'
 import { addLeadFromCompany } from '../services/leads'
 import type { Company, CompanyFilters as Filters } from '../lib/types'
@@ -29,7 +29,7 @@ export function ResultsPage() {
   const [view, setView] = useState<'lista' | 'mapa'>('lista')
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS)
   const [messageTarget, setMessageTarget] = useState<Company | null>(null)
-  const [prototypeTarget, setPrototypeTarget] = useState<Company | null>(null)
+  const [sitePromptTarget, setSitePromptTarget] = useState<Company | null>(null)
 
   const categories = useMemo(() => [...new Set(companies.map((c) => c.category))], [companies])
   const neighborhoods = useMemo(
@@ -62,9 +62,9 @@ export function ResultsPage() {
     markContacted(company.placeId)
   }
 
-  function handleOfferPrototype(company: Company) {
+  function handleOfferSitePrompts(company: Company) {
     setMessageTarget(null)
-    setPrototypeTarget(company)
+    setSitePromptTarget(company)
   }
 
   if (!params) {
@@ -149,11 +149,11 @@ export function ResultsPage() {
         <MessageGeneratorModal
           company={messageTarget}
           onClose={() => setMessageTarget(null)}
-          onGeneratePrototype={handleOfferPrototype}
+          onGenerateSitePrompts={handleOfferSitePrompts}
         />
       )}
-      {prototypeTarget && (
-        <PrototypeGeneratorModal company={prototypeTarget} onClose={() => setPrototypeTarget(null)} />
+      {sitePromptTarget && (
+        <SitePromptModal company={sitePromptTarget} onClose={() => setSitePromptTarget(null)} />
       )}
     </div>
   )

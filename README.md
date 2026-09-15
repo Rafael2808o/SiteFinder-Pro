@@ -2,11 +2,11 @@
 
 **Encontre empresas locais que ainda não têm site, antes da concorrência.**
 
-O SiteFinder Pro é uma plataforma de prospecção comercial construída com React e TypeScript. Ela busca empresas locais via OpenStreetMap, classifica quem não tem site próprio, pontua o potencial de cada lead, organiza tudo em um CRM e gera mensagem de abordagem e protótipo de site com IA — sem exigir chave do Google nem cartão de crédito.
+O SiteFinder Pro é uma plataforma de prospecção comercial construída com React e TypeScript. Ela busca empresas locais via OpenStreetMap, classifica quem não tem site próprio, pontua o potencial de cada lead, organiza tudo em um CRM e usa IA para gerar mensagem de abordagem e os prompts de site prontos para colar num assistente de IA — sem exigir chave do Google nem cartão de crédito.
 
 ## Teste o projeto
 
-**[Abrir o SiteFinder Pro](https://sitefinder-pro.onrender.com/)**
+**[Abrir o SiteFinder Pro](https://sitefinder-pro.onrender.com/)** · [Repositório](https://github.com/Rafael2808o/SiteFinder-Pro)
 
 O serviço gratuito do Render pode levar alguns segundos para despertar no primeiro acesso. Crie uma conta pela tela de cadastro — não há dados de demonstração pré-carregados, cada conta começa vazia.
 
@@ -16,7 +16,7 @@ O serviço gratuito do Render pode levar alguns segundos para despertar no prime
 - classificação automática em sem site, possível site (só rede social) ou com site próprio;
 - pontuação de potencial do lead (0–100) a partir de avaliações, telefone, Instagram e status do site;
 - geração de mensagem de prospecção personalizada por IA, pronta para WhatsApp;
-- geração de protótipo de site (identidade visual, copy e seções) por IA, exportável em PDF;
+- geração de dois prompts prontos por IA (protótipo rápido e site completo) para colar direto no Claude e construir o site de verdade a partir dos dados reais do lead;
 - mapa interativo dos resultados da busca com Leaflet;
 - CRM com pipeline de status (novo, contato realizado, respondeu, negociação, cliente...) e anotações por lead;
 - exportação da lista de leads para CSV e Excel;
@@ -25,7 +25,7 @@ O serviço gratuito do Render pode levar alguns segundos para despertar no prime
 ## Princípios do produto
 
 - **Transparência de dados:** a busca usa OpenStreetMap em vez do Google Places, então não há nota nem número de avaliações do Google — a pontuação de lead já trata isso sem quebrar, em vez de fingir um dado que não existe.
-- **Honestidade comercial:** o protótipo gerado por IA é uma peça de demonstração, não um site publicável — a interface deixa isso explícito para quem for usá-lo em uma conversa de venda.
+- **Honestidade comercial:** o prompt de protótipo gera uma peça de demonstração, não um site publicável — isso fica explícito no próprio texto do prompt para quem for usá-lo em uma conversa de venda.
 - **Sem raspagem:** nenhum dado vem de scraping do Google Search ou Maps; tudo vem de APIs públicas (OpenStreetMap) ou de IA (Gemini), respeitando os limites de uso de cada uma.
 - **Sem fricção de entrada:** nenhuma funcionalidade principal depende de cartão de crédito, cadastro em serviço pago ou chave de API do Google.
 
@@ -38,11 +38,11 @@ SiteFinder Pro/
 │   ├── context/       AuthContext, SearchContext
 │   ├── lib/           types, classification (sem/possível/com site), scoring, export, whatsapp
 │   ├── pages/         LandingPage, auth/, Dashboard, Search, Results, CompanyDetails, Leads, Crm, Settings
-│   ├── services/       places.ts (busca), ai.ts (mensagem/protótipo), leads.ts (CRUD Supabase)
+│   ├── services/       places.ts (busca), ai.ts (mensagem/prompts de site), leads.ts (CRUD Supabase)
 │   └── routes/        ProtectedRoute
 ├── supabase/
 │   ├── migrations/    schema de leads com RLS por usuário
-│   └── functions/     places-search, places-photo, generate-message, generate-prototype
+│   └── functions/     places-search, places-photo, generate-message, generate-site-prompts
 └── render.yaml        publicação como Static Site no Render
 ```
 
@@ -51,7 +51,7 @@ SiteFinder Pro/
 | Camada | Tecnologias |
 | --- | --- |
 | Site | React 19, TypeScript, Vite, Tailwind CSS v4, React Router |
-| Mapa e dados | React-Leaflet, Recharts, Papaparse, XLSX, jsPDF/html2canvas |
+| Mapa e dados | React-Leaflet, Recharts, Papaparse, XLSX |
 | Backend | Supabase (Auth + Postgres com RLS), Supabase Edge Functions |
 | Busca de empresas | OpenStreetMap — Nominatim (geocodificação) e Overpass API (locais) |
 | Inteligência artificial | Gemini (padrão), com suporte a troca de provedor |
@@ -80,7 +80,7 @@ Deploy das Edge Functions (secrets `AI_PROVIDER`, `GEMINI_API_KEY`/`OPENAI_API_K
 ```bash
 supabase functions deploy places-search
 supabase functions deploy generate-message
-supabase functions deploy generate-prototype
+supabase functions deploy generate-site-prompts
 ```
 
 Rodar o site:
@@ -95,7 +95,7 @@ npm run dev
 
 ## Configuração de produção
 
-O `render.yaml` publica o projeto como Static Site no Render: build `npm install && npm run build`, publica `dist/`, com rewrite `/*` → `/index.html` para as rotas do React Router funcionarem em acesso direto. As duas variáveis (`VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`) são preenchidas no dashboard do Render ao importar o Blueprint. Nunca envie o `.env` ao Git.
+O `render.yaml` publica o projeto como Static Site no [Render](https://render.com/docs/static-sites): build `npm install && npm run build`, publica `dist/`, com rewrite `/*` → `/index.html` para as rotas do React Router funcionarem em acesso direto. As duas variáveis (`VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`) são preenchidas no dashboard do Render ao importar o Blueprint. O backend roda no [Supabase](https://supabase.com/docs) (projeto `bprxnnoosqlyaoxiaocy`, região us-east-1). Nunca envie o `.env` ao Git.
 
 ## Funções e dados
 
@@ -105,7 +105,7 @@ Não há uma API REST própria — o frontend fala diretamente com Supabase (tab
 | --- | --- |
 | `places-search` | Busca empresas locais via Nominatim + Overpass (OpenStreetMap) |
 | `generate-message` | Gera mensagem de prospecção personalizada por IA |
-| `generate-prototype` | Gera briefing estruturado do protótipo de site por IA |
+| `generate-site-prompts` | Analisa a empresa e gera os dois prompts (protótipo e site completo) prontos para colar num assistente de IA |
 | `places-photo` | Repassa foto do Google Places quando essa fonte estiver habilitada (hoje sem uso) |
 
 ## Segurança e privacidade

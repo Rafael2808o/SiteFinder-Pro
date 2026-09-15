@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Send, Sparkles, CheckCircle2, FileDown } from 'lucide-react'
+import { Send, Sparkles, CheckCircle2, Wand2 } from 'lucide-react'
 import type { Company } from '../../lib/types'
 import { Modal } from '../ui/Modal'
 import { Button } from '../ui/Button'
@@ -9,11 +9,11 @@ import { buildWhatsappUrl } from '../../lib/whatsapp'
 export function MessageGeneratorModal({
   company,
   onClose,
-  onGeneratePrototype,
+  onGenerateSitePrompts,
 }: {
   company: Company
   onClose: () => void
-  onGeneratePrototype: (company: Company) => void
+  onGenerateSitePrompts: (company: Company) => void
 }) {
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(true)
@@ -86,7 +86,7 @@ export function MessageGeneratorModal({
                 <CheckCircle2 size={16} /> Mensagem aberta no WhatsApp.
               </p>
               <p className="text-sm text-emerald-700">
-                Quer gerar o protótipo de site em PDF pra mandar junto, como a mensagem prometeu?
+                Quer gerar os prompts de IA pra criar o site agora, como a mensagem prometeu?
               </p>
               <div className="flex justify-end gap-2">
                 <Button variant="secondary" size="sm" onClick={onClose}>
@@ -94,10 +94,10 @@ export function MessageGeneratorModal({
                 </Button>
                 <Button
                   size="sm"
-                  icon={<FileDown size={14} />}
-                  onClick={() => onGeneratePrototype(company)}
+                  icon={<Wand2 size={14} />}
+                  onClick={() => onGenerateSitePrompts(company)}
                 >
-                  Gerar protótipo em PDF
+                  Gerar prompts do site
                 </Button>
               </div>
             </div>
