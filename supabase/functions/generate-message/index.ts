@@ -18,7 +18,17 @@ Deno.serve(async (req) => {
       ? `They have a real rating of ${company.rating} from ${company.reviewCount} reviews — compliment that specifically.`
       : company.instagram
         ? 'No rating data available, but they do have an Instagram — compliment their online presence/engagement with customers instead, generically (do not invent a number).'
-        : 'No rating or social data available — skip the specific compliment beat entirely and go straight from the greeting to noticing they have no website. Do not invent numbers or facts.'
+        : 'No rating or social data available — skip the specific compliment beat entirely and go straight from the greeting to the website beat below. Do not invent numbers or facts.'
+
+    // The AI must never claim a company has no website when it actually does
+    // (siteStatus === 'com_site') — that's a false, embarrassing claim to
+    // send a real business. Frame the hook honestly per the real status.
+    const websiteHint =
+      company.siteStatus === 'com_site'
+        ? "They DO already have a website — do not say or imply otherwise. Instead, note you took a look at their current site and think there's room to make it more modern/convert better, and that's the angle for reaching out."
+        : company.siteStatus === 'possivel_site'
+          ? "They only have a social media profile (e.g. Instagram), not a real website of their own — note that specifically, don't just say \"no website\" generically."
+          : "They don't have a website at all yet — note that."
 
     const languageInstruction =
       lang === 'en-US'
@@ -32,9 +42,9 @@ Deno.serve(async (req) => {
 Follow this EXACT structure, in this order, as natural flowing prose (not a bulleted list, not labeled sections):
 1. Greeting + context: mention you found "${company.name}" (category: ${company.category}) while looking at businesses in ${company.city}.
 2. A brief compliment. ${complimentHint}
-3. Note that you noticed they don't have their own website yet (their site status: ${company.siteStatus}).
+3. ${websiteHint}
 4. Introduce yourself as a web developer.
-5. Say you already put together a prototype/mockup for them, and ask if you can send it over as a PDF.
+5. Offer to put together a quick preview of what their site could look like, and ask if they'd like to see it.
 6. One short differentiator: you work with a one-time payment, no monthly subscription/recurring fee.
 7. End with a soft, low-pressure call to action (a question, not a demand).
 
