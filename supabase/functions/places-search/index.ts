@@ -148,19 +148,36 @@ const OVERPASS_ENDPOINTS = [
   'https://overpass.private.coffee/api/interpreter',
 ]
 
+// A mirror can accept the TCP connection and then never respond at all
+// (a network black hole, distinct from a clean HTTP error) — the query's own
+// `[timeout:25]` only bounds Overpass's server-side processing, not how long
+// `fetch` waits for bytes to arrive. Without a client-side abort, one bad
+// mirror hangs the whole function until the platform kills the worker for
+// exceeding its resource budget, instead of falling through to the next
+// mirror in a few seconds.
+async function fetchWithTimeout(url: string, init: RequestInit, timeoutMs: number): Promise<Response> {
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), timeoutMs)
+  try {
+    return await fetch(url, { ...init, signal: controller.signal })
+  } finally {
+    clearTimeout(timer)
+  }
+}
+
 async function fetchOverpass(query: string): Promise<any> {
   let lastError = ''
   for (const endpoint of OVERPASS_ENDPOINTS) {
     try {
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain', 'User-Agent': USER_AGENT },
-        body: query,
-      })
+      const res = await fetchWithTimeout(
+        endpoint,
+        { method: 'POST', headers: { 'Content-Type': 'text/plain', 'User-Agent': USER_AGENT }, body: query },
+        20000,
+      )
       if (res.ok) return await res.json()
       lastError = `${endpoint} -> HTTP ${res.status}`
     } catch (err) {
-      lastError = `${endpoint} -> ${(err as Error).message}`
+      lastError = `${endpoint} -> ${(err as Error).name === 'AbortError' ? 'timeout' : (err as Error).message}`
     }
   }
   throw new Error(`Todos os espelhos Overpass falharam. Último erro: ${lastError}`)
@@ -169,7 +186,7 @@ async function fetchOverpass(query: string): Promise<any> {
 async function geocode(query: string, nominatimCode: string): Promise<{ lat: number; lon: number } | null> {
   const countryFilter = nominatimCode ? `&countrycodes=${nominatimCode}` : ''
   const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1${countryFilter}&q=${encodeURIComponent(query)}`
-  const res = await fetch(url, { headers: { 'User-Agent': USER_AGENT } })
+  const res = await fetchWithTimeout(url, { headers: { 'User-Agent': USER_AGENT } }, 10000)
   if (!res.ok) return null
   const json = await res.json()
   const first = json?.[0]
