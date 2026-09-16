@@ -47,7 +47,7 @@ export function LeadTable({ leads, onStatusChange, onNotesChange, onDelete, onMa
                         onNotesChange(lead.id, e.target.value)
                         setEditingNotes(null)
                       }}
-                      className="w-40 rounded-lg border border-slate-300 bg-white px-2 py-1 text-xs outline-none focus:border-teal-600"
+                      className="w-40 rounded-lg border border-slate-300 bg-white px-2 py-1 text-xs outline-none focus:border-signal"
                     />
                   ) : (
                     <button
@@ -90,7 +90,7 @@ export function LeadTable({ leads, onStatusChange, onNotesChange, onDelete, onMa
                     <button
                       title="Marcar como cliente"
                       onClick={() => onMarkClient(lead.id)}
-                      className="rounded-lg p-1.5 text-teal-700 hover:bg-teal-50"
+                      className="rounded-lg p-1.5 text-ink hover:bg-signal-50"
                     >
                       <CheckCircle2 size={15} />
                     </button>

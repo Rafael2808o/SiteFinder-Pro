@@ -32,8 +32,8 @@ export function ForgotPasswordPage() {
     <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
       <div className="w-full max-w-sm">
         <div className="mb-8 flex flex-col items-center gap-2">
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-teal-700">
-            <Logo size={22} className="text-white" accent="#0f766e" />
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-ink">
+            <Logo size={22} className="text-white" />
           </div>
           <h1 className="text-lg font-semibold text-slate-900">Recuperar senha</h1>
         </div>
@@ -61,7 +61,7 @@ export function ForgotPasswordPage() {
             </form>
           )}
           <div className="mt-4 text-center text-xs text-slate-500">
-            <Link to="/login" className="text-teal-700 hover:underline">
+            <Link to="/login" className="text-ink hover:underline">
               Voltar ao login
             </Link>
           </div>

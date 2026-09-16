@@ -88,13 +88,13 @@ export function ResultsPage() {
         <div className="flex gap-1 rounded-lg border border-slate-200 bg-white p-1">
           <button
             onClick={() => setView('lista')}
-            className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${view === 'lista' ? 'bg-teal-700 text-white' : 'text-slate-500'}`}
+            className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${view === 'lista' ? 'bg-ink text-white' : 'text-slate-500'}`}
           >
             <List size={15} /> Lista
           </button>
           <button
             onClick={() => setView('mapa')}
-            className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${view === 'mapa' ? 'bg-teal-700 text-white' : 'text-slate-500'}`}
+            className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${view === 'mapa' ? 'bg-ink text-white' : 'text-slate-500'}`}
           >
             <MapIcon size={15} /> Mapa
           </button>

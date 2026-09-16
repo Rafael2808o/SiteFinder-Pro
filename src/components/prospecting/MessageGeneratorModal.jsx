@@ -41,7 +41,7 @@ export function MessageGeneratorModal({ company, onClose, onGenerateSitePrompts 
     <Modal title={`✉️ Mensagem para ${company.name}`} onClose={onClose} wide>
       {loading ? (
         <div className="flex items-center gap-2 py-8 text-sm text-slate-500">
-          <Sparkles size={16} className="animate-pulse text-teal-600" />
+          <Sparkles size={16} className="animate-pulse text-signal" />
           Gerando mensagem personalizada...
         </div>
       ) : (
@@ -52,7 +52,7 @@ export function MessageGeneratorModal({ company, onClose, onGenerateSitePrompts 
             onChange={(e) => setMessage(e.target.value)}
             rows={8}
             disabled={sent}
-            className="w-full rounded-lg border border-slate-300 bg-white p-3.5 text-sm text-slate-900 outline-none focus:border-teal-600 focus:ring-2 focus:ring-teal-600/15 disabled:bg-slate-50 disabled:text-slate-500"
+            className="w-full rounded-lg border border-slate-300 bg-white p-3.5 text-sm text-slate-900 outline-none focus:border-signal focus:ring-2 focus:ring-signal/15 disabled:bg-slate-50 disabled:text-slate-500"
           />
 
           {!sent && (

@@ -26,7 +26,7 @@ export function CompanyFilters({ filters, categories, neighborhoods, onChange })
           type="checkbox"
           checked={filters.onlySemSite}
           onChange={(e) => set('onlySemSite', e.target.checked)}
-          className="h-4 w-4 rounded border-slate-300 accent-teal-700"
+          className="h-4 w-4 rounded border-slate-300 accent-ink"
         />
         Somente empresas sem site
       </label>
@@ -36,7 +36,7 @@ export function CompanyFilters({ filters, categories, neighborhoods, onChange })
           type="checkbox"
           checked={filters.onlyInstagram}
           onChange={(e) => set('onlyInstagram', e.target.checked)}
-          className="h-4 w-4 rounded border-slate-300 accent-teal-700"
+          className="h-4 w-4 rounded border-slate-300 accent-ink"
         />
         Somente empresas com Instagram
       </label>

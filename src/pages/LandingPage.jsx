@@ -8,7 +8,6 @@ import {
   KanbanSquare,
   Download,
   ShieldCheck,
-  ArrowRight,
   Search,
   Wand2,
   Send,
@@ -129,20 +128,20 @@ function Header() {
     <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/80 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-700">
-            <Logo size={17} className="text-white" accent="#0f766e" />
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-ink">
+            <Logo size={17} className="text-white" />
           </div>
           <span className="text-sm font-semibold tracking-tight text-slate-900">SiteFinder Pro</span>
         </div>
 
         <nav className="hidden items-center gap-8 text-sm font-medium text-slate-600 md:flex">
-          <a href="#como-funciona" className="hover:text-teal-700">
+          <a href="#como-funciona" className="hover:text-ink">
             Como funciona
           </a>
-          <a href="#recursos" className="hover:text-teal-700">
+          <a href="#recursos" className="hover:text-ink">
             Recursos
           </a>
-          <a href="#faq" className="hover:text-teal-700">
+          <a href="#faq" className="hover:text-ink">
             Perguntas frequentes
           </a>
         </nav>
@@ -177,9 +176,7 @@ function Hero() {
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link to="/cadastro">
-              <Button size="lg" icon={<ArrowRight size={18} />} className="flex-row-reverse">
-                Criar conta grátis
-              </Button>
+              <Button size="lg">Criar conta grátis</Button>
             </Link>
             <a href="#como-funciona">
               <Button size="lg" variant="secondary">
@@ -188,7 +185,7 @@ function Hero() {
             </a>
           </div>
           <p className="mt-4 text-xs text-slate-500">
-            Sem cartão de crédito · Sem chave de API do Google · Pronto em minutos
+            Sem cartão de crédito. Sem chave de API do Google. Pronto em minutos.
           </p>
         </div>
 
@@ -201,7 +198,6 @@ function Hero() {
 function HeroMock() {
   return (
     <div className="relative">
-      <div className="absolute -inset-6 -z-10 rounded-[2rem] bg-gradient-to-br from-teal-100 via-white to-slate-100 blur-2xl" />
       <Card className="overflow-hidden p-0 shadow-xl">
         <div className="flex items-center gap-1.5 border-b border-slate-200 bg-slate-50 px-4 py-3">
           <span className="h-2.5 w-2.5 rounded-full bg-red-300" />
@@ -238,7 +234,7 @@ function HeroMock() {
 function SectionHeading({ eyebrow, title, desc }) {
   return (
     <div className="mx-auto max-w-2xl text-center">
-      <p className="text-sm font-semibold uppercase tracking-wide text-teal-700">{eyebrow}</p>
+      <p className="text-sm font-semibold text-signal-600">{eyebrow}</p>
       <h2 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">{title}</h2>
       <p className="mt-4 text-base text-slate-600">{desc}</p>
     </div>
@@ -256,12 +252,12 @@ function HowItWorks() {
         />
         <div className="mt-14 grid gap-8 md:grid-cols-3">
           {STEPS.map((step, i) => (
-            <div key={step.title} className="relative">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-teal-700 text-white">
-                <step.icon size={22} />
+            <div key={step.title} className="relative border-t-2 border-ink pt-5">
+              <div className="flex items-center justify-between">
+                <step.icon size={22} className="text-ink" />
+                <span className="font-display text-3xl font-semibold text-slate-200">{i + 1}</span>
               </div>
-              <p className="mt-4 text-xs font-semibold text-teal-700">PASSO {String(i + 1).padStart(2, '0')}</p>
-              <h3 className="mt-1 text-lg font-semibold text-slate-900">{step.title}</h3>
+              <h3 className="mt-4 text-lg font-semibold text-slate-900">{step.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">{step.desc}</p>
             </div>
           ))}
@@ -283,7 +279,7 @@ function Features() {
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {FEATURES.map((f) => (
             <Card key={f.title} className="p-5">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-teal-50 text-teal-700">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-signal-50 text-ink">
                 <f.icon size={20} />
               </div>
               <h3 className="mt-4 text-sm font-semibold text-slate-900">{f.title}</h3>
@@ -313,16 +309,16 @@ function Transparency() {
             </p>
             <ul className="mt-6 space-y-3 text-sm text-slate-600">
               <li className="flex gap-2">
-                <ShieldCheck className="mt-0.5 shrink-0 text-teal-700" size={16} />
+                <ShieldCheck className="mt-0.5 shrink-0 text-ink" size={16} />
                 Sem nota nem número de avaliações do Google — a pontuação de lead já trata isso
                 sem quebrar.
               </li>
               <li className="flex gap-2">
-                <ShieldCheck className="mt-0.5 shrink-0 text-teal-700" size={16} />
+                <ShieldCheck className="mt-0.5 shrink-0 text-ink" size={16} />
                 Sem fotos reais do estabelecimento no protótipo gerado por IA.
               </li>
               <li className="flex gap-2">
-                <ShieldCheck className="mt-0.5 shrink-0 text-teal-700" size={16} />
+                <ShieldCheck className="mt-0.5 shrink-0 text-ink" size={16} />
                 Zero scraping do Google Search ou Maps — tudo via API pública, respeitando limites
                 de uso.
               </li>
@@ -361,12 +357,12 @@ function Cta() {
   return (
     <section className="py-20">
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
-        <div className="flex flex-col items-center gap-6 rounded-2xl bg-teal-700 px-6 py-14 text-center sm:px-14">
-          <Sparkles className="text-teal-200" size={28} />
+        <div className="flex flex-col items-center gap-6 rounded-2xl bg-ink px-6 py-14 text-center sm:px-14">
+          <Sparkles className="text-signal-50" size={28} />
           <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
             Comece a prospectar hoje mesmo
           </h2>
-          <p className="max-w-xl text-teal-50">
+          <p className="max-w-xl text-signal-50">
             Crie sua conta, escolha uma cidade e veja em minutos quantos negócios ao seu redor
             ainda não têm site.
           </p>
@@ -374,8 +370,7 @@ function Cta() {
             <Button
               size="lg"
               variant="secondary"
-              icon={<ArrowRight size={18} />}
-              className="flex-row-reverse !border-transparent !bg-white !text-teal-800 hover:!bg-teal-50"
+              className="!border-transparent !bg-white !text-ink hover:!bg-signal-50"
             >
               Criar conta grátis
             </Button>
@@ -428,8 +423,8 @@ function Footer() {
         <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-xs">
             <div className="flex items-center gap-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-md bg-teal-700">
-                <Logo size={15} className="text-white" accent="#0f766e" />
+              <div className="flex h-7 w-7 items-center justify-center rounded-md bg-ink">
+                <Logo size={15} className="text-white" />
               </div>
               <span className="text-sm font-semibold text-slate-900">SiteFinder Pro</span>
             </div>
@@ -443,17 +438,17 @@ function Footer() {
               <p className="font-semibold text-slate-900">Produto</p>
               <ul className="mt-3 space-y-2 text-slate-500">
                 <li>
-                  <a href="#como-funciona" className="hover:text-teal-700">
+                  <a href="#como-funciona" className="hover:text-ink">
                     Como funciona
                   </a>
                 </li>
                 <li>
-                  <a href="#recursos" className="hover:text-teal-700">
+                  <a href="#recursos" className="hover:text-ink">
                     Recursos
                   </a>
                 </li>
                 <li>
-                  <a href="#faq" className="hover:text-teal-700">
+                  <a href="#faq" className="hover:text-ink">
                     FAQ
                   </a>
                 </li>
@@ -463,12 +458,12 @@ function Footer() {
               <p className="font-semibold text-slate-900">Conta</p>
               <ul className="mt-3 space-y-2 text-slate-500">
                 <li>
-                  <Link to="/login" className="hover:text-teal-700">
+                  <Link to="/login" className="hover:text-ink">
                     Entrar
                   </Link>
                 </li>
                 <li>
-                  <Link to="/cadastro" className="hover:text-teal-700">
+                  <Link to="/cadastro" className="hover:text-ink">
                     Criar conta
                   </Link>
                 </li>

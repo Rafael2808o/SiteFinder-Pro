@@ -1,5 +1,5 @@
 const variantClasses = {
-  primary: 'bg-teal-700 text-white hover:bg-teal-800 shadow-sm',
+  primary: 'bg-ink text-white hover:bg-ink-700 shadow-sm',
   secondary: 'bg-white text-slate-700 border border-slate-300 hover:bg-slate-50',
   ghost: 'bg-transparent text-slate-600 hover:bg-slate-100 border border-transparent',
   danger: 'bg-red-600 text-white hover:bg-red-700',

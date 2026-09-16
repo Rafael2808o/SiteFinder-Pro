@@ -8,7 +8,7 @@ export function Input({ label, className = '', id, ...rest }) {
       )}
       <input
         id={id}
-        className={`rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:border-teal-600 focus:ring-2 focus:ring-teal-600/15 ${className}`}
+        className={`rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:border-signal focus:ring-2 focus:ring-signal/15 ${className}`}
         {...rest}
       />
     </div>

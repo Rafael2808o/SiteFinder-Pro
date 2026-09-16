@@ -33,8 +33,8 @@ export function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
       <div className="w-full max-w-sm">
         <div className="mb-8 flex flex-col items-center gap-2">
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-teal-700">
-            <Logo size={22} className="text-white" accent="#0f766e" />
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-ink">
+            <Logo size={22} className="text-white" />
           </div>
           <h1 className="text-lg font-semibold text-slate-900">SiteFinder Pro</h1>
           <p className="text-xs text-slate-500">Prospecção de clientes para sites</p>
@@ -66,10 +66,10 @@ export function LoginPage() {
             </Button>
           </form>
           <div className="mt-4 flex justify-between text-xs text-slate-500">
-            <Link to="/recuperar-senha" className="hover:text-teal-700">
+            <Link to="/recuperar-senha" className="hover:text-ink">
               Esqueci minha senha
             </Link>
-            <Link to="/cadastro" className="hover:text-teal-700">
+            <Link to="/cadastro" className="hover:text-ink">
               Criar conta
             </Link>
           </div>

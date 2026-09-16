@@ -24,7 +24,7 @@ export function SitePromptModal({ company, onClose }) {
     <Modal title={`✨ Prompts de site — ${company.name}`} onClose={onClose} wide>
       {loading && (
         <div className="flex flex-col items-center gap-3 py-12 text-sm text-slate-500">
-          <Sparkles size={24} className="animate-pulse text-teal-600" />
+          <Sparkles size={24} className="animate-pulse text-signal" />
           Analisando {company.name} e montando os prompts...
         </div>
       )}
@@ -87,7 +87,7 @@ function PromptBlock({ icon, title, subtitle, text }) {
     <div className="rounded-xl border border-slate-200">
       <div className="flex items-center justify-between gap-3 border-b border-slate-200 bg-slate-50 px-4 py-3">
         <div className="flex items-center gap-2">
-          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-teal-50 text-teal-700">
+          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-signal-50 text-ink">
             {icon}
           </span>
           <div>

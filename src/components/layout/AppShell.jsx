@@ -25,8 +25,8 @@ export function AppShell() {
     <div className="flex min-h-screen bg-slate-50 text-slate-900">
       <aside className="flex w-64 flex-col border-r border-slate-800 bg-slate-900 px-4 py-6">
         <div className="mb-8 flex items-center gap-2.5 px-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-700">
-            <Logo size={18} className="text-white" accent="#0f766e" />
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-ink">
+            <Logo size={18} className="text-white" />
           </div>
           <div>
             <p className="text-sm font-semibold leading-tight text-white">SiteFinder</p>
@@ -42,7 +42,7 @@ export function AppShell() {
               className={({ isActive }) =>
                 `flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
                   isActive
-                    ? 'bg-slate-800 text-teal-400'
+                    ? 'bg-slate-800 text-signal'
                     : 'text-slate-400 hover:bg-slate-800/60 hover:text-slate-100'
                 }`
               }

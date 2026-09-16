@@ -1,17 +1,14 @@
-// Brand mark: a browser window fused with a map-pin tip — "find the site
-// that doesn't exist yet". One flat silhouette in currentColor; the tab-bar
-// notch is cut as negative space using `accent`, which must match whatever
-// sits directly behind the mark (the teal-700 sidebar tile, or white for the
-// standalone favicon/light-background use) so it reads as a true cutout
-// rather than a mismatched patch.
-export function Logo({ size = 22, className = '', accent = '#ffffff' }) {
+// Brand mark: a location pin with a signal — "find the business that
+// doesn't have a signal (site) yet". Pin in currentColor, signal dot in
+// `accent` (defaults to the brand amber). One glyph, reads at any size.
+export function Logo({ size = 22, className = '', accent = '#E8A33D' }) {
   return (
     <svg width={size} height={size} viewBox="0 0 32 32" fill="none" className={className}>
-      <rect x="5" y="5" width="22" height="16" rx="3" fill="currentColor" />
-      <path d="M13 21 H19 L16 27.5 Z" fill="currentColor" />
-      <rect x="5" y="9" width="22" height="1.6" fill={accent} />
-      <circle cx="8.6" cy="7.2" r="1" fill={accent} />
-      <circle cx="11.8" cy="7.2" r="1" fill={accent} />
+      <path
+        d="M15 6C10.8 6 7.4 9.3 7.4 13.4C7.4 19.2 15 27 15 27C15 27 22.6 19.2 22.6 13.4C22.6 9.3 19.2 6 15 6Z"
+        fill="currentColor"
+      />
+      <circle cx="21.5" cy="8.5" r="4.3" fill={accent} />
     </svg>
   )
 }

@@ -87,7 +87,7 @@ export function DashboardPage() {
       </p>
 
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-6">
-        <MetricCard icon={Building2} label="Empresas encontradas" value={companies.length} tone="bg-teal-50 text-teal-700" />
+        <MetricCard icon={Building2} label="Empresas encontradas" value={companies.length} tone="bg-signal-50 text-ink" />
         <MetricCard icon={XCircle} label="Empresas sem site" value={semSite} tone="bg-red-50 text-red-700" />
         <MetricCard icon={CheckCircle2} label="Empresas com site" value={comSite} tone="bg-emerald-50 text-emerald-700" />
         <MetricCard icon={Users} label="Possíveis leads" value={leads.length} tone="bg-blue-50 text-blue-700" />
